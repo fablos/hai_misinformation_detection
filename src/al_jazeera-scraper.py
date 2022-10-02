@@ -1,33 +1,33 @@
 import requests
 from bs4 import BeautifulSoup
+import re
 
-headers = { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'}
+HEADERS = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36'}
 
 #url = 'https://www.aljazeera.com/news/2022/9/30/russia-ukraine-war-list-of-key-events-day-219'
-base_url = 'https://www.aljazeera.com'
+BASE_URL = 'https://www.aljazeera.com'
 url = '/news/2022/9/29/russia-ukraine-war-list-of-key-events-day-218'
 
-response = requests.get(base_url+url, headers=headers)
 
-soup = BeautifulSoup(response.content, 'html.parser')
+def get_article(url='', base_url=BASE_URL, headers=HEADERS):
+    response = requests.get(base_url + url, headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    article_content = soup.find('div', {'class': 'wysiwyg wysiwyg--all-content css-ibbk12'})
+    return '\n'.join([p.text for p in BeautifulSoup(str(article_content), 'html.parser').findAll('p')])
 
-#article_content = soup.find_all('div', {'class':'wysiwyg wysiwyg--all-content css-ibbk12'})
 
+def get_key_points(url='', base_url=BASE_URL, headers=HEADERS):
+    response = requests.get(base_url + url, headers=headers)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    for h in soup.find('ul', {'class': 'spaced-bullet-spacing'}):
+        if len(h.text) > 1:
+            print(h.text, '\n')
+            s2 = BeautifulSoup(str(h), 'html.parser')
+            for link in s2.findAll('a'):
+                print(link.get('href'))
+                article = get_article(url=link.get('href'))
+                print(article)
+                print('ooooooooooooooooooooooooooooooooooooooooooooooooooooooooo')
+            break
 
-for h in soup.find('ul', {'class':'spaced-bullet-spacing'}):
-    print(h.text)
-    a = h.find('a')
-    try:
-        if 'href' in a.attrs:
-            c_url = a.get('href')
-            print(c_url,' *********** \n')
-            c_response = requests.get(base_url + c_url, headers=headers)
-            c_soup = BeautifulSoup(c_response, 'html.parser')
-            article_content = soup.find('div', {'class': 'wysiwyg wysiwyg--all-content css-ibbk12'})
-            print(article_content.text)
-            # for p in article_content:
-            #     print(p.text)
-            #     break
-            print(c_url, ' ------------- \n')
-    except:
-        pass
+get_key_points(url=url)
