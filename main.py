@@ -13,11 +13,11 @@ def extract_date(url):
 with open('links.txt', encoding='utf-8') as f:
     links = f.read().splitlines()
 
-data = json.load(open('data.json')) if exists('data.json') else {}
+data = json.load(open('data.json', encoding='utf-8')) if exists('data.json') else {}
 
 assert len(data.keys()) > 0
 
-for link in links[:22]:
+for link in links:
     d = extract_date(link)
     if d not in data.keys():
         data[d] = get_key_points(link)
