@@ -4,11 +4,14 @@ import json
 import time
 from os.path import exists
 
+from src.links_creator import generate_link_list
+
 
 def extract_date(url):
     m = re.search(r"[0-9]{4}/[0-9]{1,2}/[0-9]{1,2}", url)
     return m.group(0)
 
+generate_link_list()
 
 with open('links.txt', encoding='utf-8') as f:
     links = f.read().splitlines()
