@@ -1,10 +1,15 @@
-# The Fact-based Fake News Dataset around Russia’s Invasion of Ukraine
+# Event Dataset about Russia-Ukraine war v0.0
 
 
 [Human-machine collaboration for content analysis in context of Ukranian war](https://www.humane-ai.eu/project/human-machine-collaboration-for-content-analysis-in-context-of-ukranian-war/)
 
 
-This project provide the code to collect and structure events and articles from Al Jazeera news agency. 
+This repository provides the code to collect and structure events and articles from Al Jazeera news agency. 
 
 All the events are related to Russian-Ukranian war. 
 
+
+#TODO
+
+- add category
+- add url
