@@ -13,3 +13,12 @@ All the events are related to Russian-Ukranian war.
 
 - add category
 - add url
+
+External libraries:
+
+`$pip install beautifulsoup4 keybert`
+
+To collect and structure news articles 
+
+`$python main.py`
+
