@@ -11,8 +11,8 @@ All the events are related to Russian-Ukranian war.
 
 #TODO
 
-- add category
-- add url
+- add category field
+- add url field
 - many more things
 
 External libraries:
